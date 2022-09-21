@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class HmdCalibration : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class HmdCalibration : MonoBehaviour
 
     [SerializeField]
     private GameObject controllerGameObject;
+
     bool calibrated = false;
     int timeout = 100;
     int time = 0;
@@ -31,8 +33,8 @@ public class HmdCalibration : MonoBehaviour
         if (!calibrated) {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                        calibrationUpdate.Invoke();
-                        calibrated = true;
+                calibrationUpdate.Invoke();
+                calibrated = true;
             }
         }
     }
