@@ -41,7 +41,6 @@ public class PlayerPanel : MonoBehaviour
 
     private Canvas panelCanvas;
 
-
     void Awake()
     {
         panelCanvas = gameObject.GetComponentInChildren<Canvas>();

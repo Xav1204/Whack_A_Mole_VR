@@ -378,7 +378,6 @@ public class GameDirector : MonoBehaviour
             }
             yield return null;
         }
-
         StartGame();
     }
 

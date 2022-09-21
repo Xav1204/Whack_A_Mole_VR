@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -108,6 +109,7 @@ public class WallManager : MonoBehaviour
     private float lowestZ = -1f;
     private float highestZ = -1f;
 
+    public List<GameObject> listMole;
     void Start()
     {
         SetDefaultWall();
@@ -237,6 +239,7 @@ public class WallManager : MonoBehaviour
         {
             GenerateWall();
             UpdateWallLogs();
+            StartCoroutine(FillingWall(listMole));
         }
     }
 
@@ -406,6 +409,7 @@ public class WallManager : MonoBehaviour
 
                 // Instanciates a Mole object
                 Mole mole = Instantiate(moleObject, transform);
+                listMole.Add(mole.transform.gameObject);
                 // Get the Mole object's local position depending on the current row, column and the curve coefficient
                 Vector3 molePos = DefineMolePos(x, y);
 
@@ -476,6 +480,20 @@ public class WallManager : MonoBehaviour
         Quaternion lookAngle = new Quaternion();
         lookAngle.eulerAngles = new Vector3(-((((float)yIndex/(rowCount - 1)) * 2) - 1) * (maxAngle * yCurveRatio), ((((float)xIndex/(columnCount - 1)) * 2) - 1) * (maxAngle * xCurveRatio), 0f);
         return lookAngle;
+    }
+
+    private IEnumerator FillingWall(List<GameObject> list){  
+        while(list.Count > 0){
+            for(var j = 0; j < 2; j++){
+                //update the list after each iteration
+                var tmpList = list.ToArray();
+                var i = Random.Range(0, tmpList.Length);
+                //activate the mole
+                tmpList[i].SetActive(true);
+                list.RemoveAt(i);
+            }
+            yield return new WaitForSeconds((5/(100^5)));
+        }
     }
 
     private IEnumerator WallUpdateCooldown()
