@@ -51,7 +51,7 @@ public class TherapistPanelController : MonoBehaviour
     // Called when the "exit" button is pressed
     public void OnExitPress()
     {
-        therapistUi.ExitApplication();
+       therapistUi.ExitApplication();
     }
 
     // On countdown, updates the gamestate container.
