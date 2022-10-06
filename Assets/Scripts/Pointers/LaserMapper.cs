@@ -10,6 +10,8 @@ public class MotorSpaceInfo {
     public float height;
     public Vector3 pos;
     public float multiplier = 1f;
+
+    public float duration = 0.4f;
     public MotorCalcMode mode = MotorCalcMode.center;
 
     public object Clone()
@@ -371,7 +373,7 @@ public class LaserMapper : MonoBehaviour
     }
 
     public void SetMotorSpace(MotorSpaceInfo motorspace) {
-        coroutineQueue.Enqueue(ScaleMotorSpace(motorspace, 0.4f));
+        coroutineQueue.Enqueue(ScaleMotorSpace(motorspace, motorspace.duration));
 
         multiplier = motorspace.multiplier;
         UpdateMotorSpaceVisualizer(motorspace.mode);
