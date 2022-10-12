@@ -237,6 +237,9 @@ MonoBehaviour:
   enableSound: {fileID: 8300000, guid: 093810481fbea044a888edafeb74156b, type: 3}
   disableSound: {fileID: 8300000, guid: 093810481fbea044a888edafeb74156b, type: 3}
   popSound: {fileID: 8300000, guid: 093810481fbea044a888edafeb74156b, type: 3}
+  elementsToDisable:
+  - {fileID: 8291215273352707670}
+  - {fileID: 5408287105649101920}
 --- !u!82 &5964598934260530701
 AudioSource:
   m_ObjectHideFlags: 0

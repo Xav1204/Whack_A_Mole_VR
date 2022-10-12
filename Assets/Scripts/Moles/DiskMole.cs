@@ -47,6 +47,8 @@ public class DiskMole : Mole
 
     [SerializeField]
     private AudioClip popSound;
+    [SerializeField]
+    private GameObject[] elementsToDisable;
 
     private Shader opaqueShader;
     private Shader glowShader;
@@ -98,6 +100,22 @@ public class DiskMole : Mole
             meshMaterial.mainTexture =  distractorRightTexture;
         }
         base.PlayEnabling();
+    }
+
+    protected override void PlayInvisible()
+    {
+        foreach(var elem in elementsToDisable){
+            elem.SetActive(false);
+        }
+        base.PlayInvisible();
+    }
+
+    protected override void PlayVisible()
+    {
+        foreach(var elem in elementsToDisable){
+            elem.SetActive(true);
+        }
+        base.PlayVisible();
     }
 
     protected override void PlayDisabling()

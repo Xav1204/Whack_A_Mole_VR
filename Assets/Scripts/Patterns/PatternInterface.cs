@@ -104,7 +104,29 @@ public class PatternInterface : MonoBehaviour
                     Debug.LogError("Error in MOLE: " + e.Message);
                 }
                 break;
-            
+
+            case "INVISIBLE":
+                try
+                {
+                    SetInvisibleMole(action["X"], action["Y"], action["LIFETIME"]);
+                }
+                catch(System.Exception e)
+                {
+                    Debug.LogError("Error in MOLE: " + e.Message);
+                }
+                break;
+
+            case "VISIBLE":
+                try
+                {
+                    SetVisibleMole(action["X"], action["Y"], action["LIFETIME"]);
+                }
+                catch(System.Exception e)
+                {
+                    Debug.LogError("Error in MOLE: " + e.Message);
+                }
+                break;
+
             case "DIFFICULTY":
                 try
                 {
@@ -238,6 +260,20 @@ public class PatternInterface : MonoBehaviour
         int moleId = ((int.Parse(xIndex)) * 100) + (int.Parse(yIndex));
         AddMoleIdList(moleId);
         wallManager.ActivateMole(moleId, ParseFloat(lifeTime), gameDirector.GetMoleExpiringDuration(), Mole.MoleType.Target);
+    }
+
+    private void SetInvisibleMole(string xIndex, string yIndex, string lifeTime)
+    {
+        int moleId = ((int.Parse(xIndex)) * 100) + (int.Parse(yIndex));
+        AddMoleIdList(moleId);
+        wallManager.InvisibleMole(moleId, ParseFloat(lifeTime), gameDirector.GetMoleExpiringDuration());
+    }
+
+    private void SetVisibleMole(string xIndex, string yIndex, string lifeTime)
+    {
+        int moleId = ((int.Parse(xIndex)) * 100) + (int.Parse(yIndex));
+        AddMoleIdList(moleId);
+        wallManager.VisibleMole(moleId, ParseFloat(lifeTime), gameDirector.GetMoleExpiringDuration());
     }
 
     // Spawns a distractor (fake Mole)

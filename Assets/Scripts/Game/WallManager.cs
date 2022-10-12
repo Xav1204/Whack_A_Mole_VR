@@ -288,6 +288,22 @@ public class WallManager : MonoBehaviour
         moleCount++;
     }
 
+    public void InvisibleMole(int moleId, float lifeTime, float moleExpiringDuration)
+    {
+        if (!active) return;
+        if (!moles.ContainsKey(moleId)) return;
+        moles[moleId].Invisible(lifeTime, moleExpiringDuration, spawnOrder);
+        moleCount++;
+    }
+
+    public void VisibleMole(int moleId, float lifeTime, float moleExpiringDuration)
+    {
+        if (!active) return;
+        if (!moles.ContainsKey(moleId)) return;
+        moles[moleId].Visible(moleExpiringDuration, moleExpiringDuration, spawnOrder);
+        moleCount++;
+    }
+
     // Pauses/unpauses the moles
     public void SetPauseMole(bool pause)
     {
