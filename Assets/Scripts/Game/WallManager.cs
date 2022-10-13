@@ -296,14 +296,6 @@ public class WallManager : MonoBehaviour
         moleCount++;
     }
 
-    public void VisibleMole(int moleId, float lifeTime, float moleExpiringDuration)
-    {
-        if (!active) return;
-        if (!moles.ContainsKey(moleId)) return;
-        moles[moleId].Visible(moleExpiringDuration, moleExpiringDuration, spawnOrder);
-        moleCount++;
-    }
-
     // Pauses/unpauses the moles
     public void SetPauseMole(bool pause)
     {
@@ -465,6 +457,14 @@ public class WallManager : MonoBehaviour
         if (!(active && isInit)) return;
         StopAllCoroutines();
         StartCoroutine(WallUpdateCooldown());
+    }
+
+    public void InvisibleMoleOnWall(bool isInvisible)
+    {
+        foreach (KeyValuePair<int, Mole> kvp in moles)
+        {
+            kvp.Value.transform.gameObject.SetActive(!isInvisible);
+        }
     }
 
     // Gets the Mole position depending on its index, the wall size (x and y axes of the vector3), and also on the curve coefficient (for the z axis).

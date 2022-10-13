@@ -17,7 +17,7 @@ public abstract class Mole : MonoBehaviour
     public enum MoleType {Target,DistractorLeft,DistractorRight}
 
     // The states may be reduced to 3 - 4 (by removing Popping, enabling...), however this could reduce the control over the Mole
-    public enum States {Disabled, Enabled, Expired,Invisible, Visible, Popping, Popped, Enabling, Disabling}
+    public enum States {Disabled, Enabled, Expired,Invisible, Popping, Popped, Enabling, Disabling}
 
     [SerializeField]
     private float disableCooldown = 3f;
@@ -133,14 +133,6 @@ public abstract class Mole : MonoBehaviour
         expiringTime = expiringDuration;
         spawnOrder = moleSpawnOrder;
         ChangeState(States.Invisible);
-    }
-
-    public void Visible(float enabledLifeTime, float expiringDuration, int moleSpawnOrder = -1)
-    {
-        lifeTime = enabledLifeTime;
-        expiringTime = expiringDuration;
-        spawnOrder = moleSpawnOrder;
-        ChangeState(States.Visible);
     }
 
     public void Disable()
@@ -303,9 +295,6 @@ public abstract class Mole : MonoBehaviour
                 break;
             case States.Invisible:
                 PlayInvisible();
-                break;
-            case States.Visible:
-                PlayVisible();
                 break;
             case States.Popping:
                 PlayPop();

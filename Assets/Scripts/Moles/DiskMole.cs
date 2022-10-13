@@ -110,14 +110,6 @@ public class DiskMole : Mole
         base.PlayInvisible();
     }
 
-    protected override void PlayVisible()
-    {
-        foreach(var elem in elementsToDisable){
-            elem.SetActive(true);
-        }
-        base.PlayVisible();
-    }
-
     protected override void PlayDisabling()
     {
         PlaySound(enableSound);
