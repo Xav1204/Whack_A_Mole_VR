@@ -55,6 +55,7 @@ public abstract class Mole : MonoBehaviour
             {"MolePositionLocalZ", "NULL"},
             {"MoleSize", "NULL"},
             {"MoleLifeTime", "NULL"},
+            {"MoleType", "NULL"},
             {"MoleActivatedDuration", "NULL"},
             {"MoleId", "NULL"},
             {"MoleSpawnOrder", "NULL"},
@@ -287,8 +288,11 @@ public abstract class Mole : MonoBehaviour
                 break;
             case States.Enabling:
 
-                if (moleType == MoleType.Target) loggerNotifier.NotifyLogger("Mole Spawned", EventLogger.EventType.MoleEvent);
-                else loggerNotifier.NotifyLogger("Fake Mole Spawned", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
+                if (moleType == MoleType.Target) loggerNotifier.NotifyLogger("Mole Spawned", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
+                            {
+                                {"MoleType", System.Enum.GetName(typeof(MoleType), moleType)}
+                            });
+                else loggerNotifier.NotifyLogger(System.Enum.GetName(typeof(MoleType), moleType) + " Mole Spawned", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
                             {
                                 {"MoleType", System.Enum.GetName(typeof(MoleType), moleType)}
                             });
@@ -301,9 +305,10 @@ public abstract class Mole : MonoBehaviour
             case States.Disabling:
                 if (moleType == MoleType.Target) loggerNotifier.NotifyLogger("Mole Expired", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
                             {
-                                {"MoleActivatedDuration", lifeTime}
+                                {"MoleActivatedDuration", lifeTime},
+                                {"MoleType", System.Enum.GetName(typeof(MoleType), moleType)}
                             });
-                else loggerNotifier.NotifyLogger("Fake Mole Expired", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
+                else loggerNotifier.NotifyLogger(System.Enum.GetName(typeof(MoleType), moleType) + " Mole Expired", EventLogger.EventType.MoleEvent, new Dictionary<string, object>()
                             {
                                 {"MoleActivatedDuration", lifeTime},
                                 {"MoleType", System.Enum.GetName(typeof(MoleType), moleType)}
@@ -382,6 +387,7 @@ public abstract class Mole : MonoBehaviour
             {"MolePositionLocalZ", transform.localPosition.z},
             {"MoleSize", (this.GetComponentsInChildren<Renderer>()[0].bounds.max.x - this.GetComponentsInChildren<Renderer>()[0].bounds.min.x)},
             {"MoleLifeTime", lifeTime},
+            {"MoleType", moleType},
             {"MoleId", id.ToString("0000")},
             {"MoleSpawnOrder", spawnOrder.ToString("0000")},
             {"MoleIndexX", (int)Mathf.Floor(id/100)},
